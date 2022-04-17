@@ -11,6 +11,14 @@ import (
 	userController "rest-go-stock/controllers/users"
 	userRepo "rest-go-stock/drivers/repository/users"
 
+	product_typeUseCase "rest-go-stock/businesses/product_types"
+	product_typeController "rest-go-stock/controllers/product_types"
+	product_typeRepo "rest-go-stock/drivers/repository/product_types"
+
+	productUseCase "rest-go-stock/businesses/products"
+	productController "rest-go-stock/controllers/products"
+	productRepo "rest-go-stock/drivers/repository/products"
+
 	
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
@@ -31,6 +39,8 @@ func init() {
 
 func DBMigrate(DB *gorm.DB) {
 	DB.AutoMigrate(&userRepo.User{})
+	DB.AutoMigrate(&product_typeRepo.ProductType{})
+	DB.AutoMigrate(&productRepo.Product{})
 }
 
 
@@ -59,8 +69,20 @@ func main() {
 	userUseCaseInterface := userUseCase.NewUseCase(userRepoInterface, timeoutContext, &configJWT)
 	userUseControllerInterface := userController.NewUserController(userUseCaseInterface)
 
+	product_typeRepoInterface := product_typeRepo.NewProductTypeRepo(DB)
+	product_typeUseCaseInterface := product_typeUseCase.NewUseCase(product_typeRepoInterface, timeoutContext)
+	product_typeUseControllerInterface := product_typeController.NewProductTypeController(product_typeUseCaseInterface)
+
+	productRepoInterface := productRepo.NewProductRepo(DB)
+	productUseCaseInterface := productUseCase.NewUseCase(productRepoInterface, timeoutContext)
+	productUseControllerInterface := productController.NewProductController(productUseCaseInterface)
+
+
+
 	routesInit := routes.RouteControllerList{
 		UserController: *userUseControllerInterface,
+		ProductTypeController: *product_typeUseControllerInterface,
+		ProductController: *productUseControllerInterface,
 		JWTMiddleware: configJWT.Init(),
 	}
 	routesInit.RouteRegister(e)

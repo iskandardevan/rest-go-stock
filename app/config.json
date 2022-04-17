@@ -9,8 +9,8 @@
   "database": {
     "host": "localhost",
     "port": "3306",
-    "user": "rest-go-stock",
-    "pass": "",
+    "user": "root",
+    "pass": "qqwerty",
     "name": "rest-go-stock"
   },
   "JWT": {
@@ -18,3 +18,12 @@
     "expired_time": 2
   }
 }
+
+
+
+
+
+
+
+
+

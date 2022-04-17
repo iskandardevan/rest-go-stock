@@ -13,9 +13,7 @@ type UserResponse struct {
 	UpdatedAt 	time.Time      `json:"updatedAt"`
 	DeletedAt 	gorm.DeletedAt `json:"deletedAt"`
 	Email     	string         `json:"email"`
-	Name      	string         `json:"name"`
-	Phone		string 			`json:"phone"`
-	Roles_ID	uint			`json:"role_id"`
+	Name      	string         `json:"name"` 
 
 }
 
