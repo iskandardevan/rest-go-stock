@@ -31,5 +31,5 @@ func (ctrl *ProductController) Add(c echo.Context) error {
 	if err != nil {
 		return controllers.NewErrorResponse(c, http.StatusBadRequest, err)
 	}
-	return controllers.NewSuccessResponse(c, response.FromDomainProduct(data))
+	return controllers.NewSuccesResponse(c, response.FromDomainProduct(data))
 }
