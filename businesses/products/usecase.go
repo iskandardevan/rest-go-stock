@@ -4,15 +4,12 @@ import (
 	"context"
 	"errors" 
 	"time"
-
-	"rest-go-stock/app/middlewares" 
 )
 
 type ProductUseCase struct {
 	repo ProductRepoInterface
 	ctx time.Duration 
 	
-	JWTAuth *middlewares.ConfigJWT
 }
 
 
@@ -25,19 +22,19 @@ func NewUseCase(productRepo ProductRepoInterface, ctx time.Duration) *ProductUse
 }
 
 
-func (usecase *ProductUseCase) AddProduct(ctx context.Context, domain Domain) (Domain, error){
+func (usecase *ProductUseCase) Add(ctx context.Context, domain Domain) (Domain, error){
 	if domain.Name == "" {
 		return Domain{}, errors.New("nama belum di isi")
 	}
 	if domain.Description == "" {
 		return Domain{}, errors.New("deskripsi belum di isi")
 	}
-	if domain.ProductType_Id == 0 {
-		return Domain{}, errors.New("ProductType Id belum di isi")
-	}
-	if domain.Code == 0 {
-		return Domain{}, errors.New("code belum di isi")
-	}
+	// if domain.ProductType_Id == 0 {
+	// 	return Domain{}, errors.New("ProductType Id belum di isi")
+	// }
+	// if domain.Code == 0 {
+	// 	return Domain{}, errors.New("code belum di isi")
+	// }
 	if domain.Price == 0 {
 		return Domain{}, errors.New("price belum di isi")
 	}
@@ -46,7 +43,7 @@ func (usecase *ProductUseCase) AddProduct(ctx context.Context, domain Domain) (D
 	}
 	
 
-	product, err := usecase.repo.AddProduct(ctx, domain)
+	product, err := usecase.repo.Add(ctx, domain)
 	if err != nil {
 		return Domain{}, err
 	}

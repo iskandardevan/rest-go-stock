@@ -13,7 +13,6 @@ import (
 type UserUseCase struct {
 	repo UserRepoInterface
 	ctx time.Duration 
-	
 	JWTAuth *middlewares.ConfigJWT
 }
 

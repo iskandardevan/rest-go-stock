@@ -1,6 +1,8 @@
 package routes
 
-import ( 
+import (
+	"rest-go-stock/controllers/product_types"
+	"rest-go-stock/controllers/products"
 	"rest-go-stock/controllers/users"
 
 	"github.com/labstack/echo/v4"
@@ -9,7 +11,9 @@ import (
 
 type RouteControllerList struct {
 	JWTMiddleware  middleware.JWTConfig
-	UserController users.UserController 
+	UserController users.UserController
+	ProductController products.ProductController
+	ProductTypeController product_types.ProductTypeController
 }
 
 func (ctrl *RouteControllerList) RouteRegister(e *echo.Echo) {
@@ -24,5 +28,10 @@ func (ctrl *RouteControllerList) RouteRegister(e *echo.Echo) {
 	e.POST("user", ctrl.UserController.GetByEmail)
 	e.GET("users", ctrl.UserController.GetAllUsers)
 	e.PUT("user/:id", ctrl.UserController.UpdateUserByID, jwt)
+
+	e.POST("/product_type",  ctrl.ProductTypeController.AddProductType)
+	// e.GET("/product_type/:id", ctrl.ProductTypeController.GetByID)
+
+	e.POST("/product", ctrl.ProductController.Add)
 
 }
