@@ -35,3 +35,11 @@ func FromDomainProduct(domain products.Domain) ProductResponse {
 		DeletedAt: domain.DeletedAt,
 	}
 }
+
+func FromDomainProductArray(data []products.Domain) []ProductResponse {
+	var res []ProductResponse
+	for _, val := range data {
+		res = append(res, FromDomainProduct(val))
+	}
+	return res
+}

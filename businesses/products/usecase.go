@@ -2,7 +2,7 @@ package products
 
 import (
 	"context"
-	"errors" 
+	"errors"
 	"time"
 )
 
@@ -48,5 +48,24 @@ func (usecase *ProductUseCase) Add(ctx context.Context, domain Domain) (Domain, 
 		return Domain{}, err
 	}
 	
+	return product, nil
+}
+
+func (usecase *ProductUseCase) GetAll(ctx context.Context) ([]Domain, error){
+	product, err := usecase.repo.GetAll(ctx)
+	if err != nil {
+		return []Domain{}, err
+	}
+	return product, nil
+}
+
+func (usecase *ProductUseCase) GetByID(id uint, ctx context.Context) (Domain, error){
+	product, err := usecase.repo.GetByID(id, ctx)
+	if err != nil {
+		return Domain{}, errors.New("tidak ada product dengan ID tersebut")
+	}
+	if id == 0 {
+		return Domain{}, errors.New("ID harus diisi")
+	}
 	return product, nil
 }

@@ -23,12 +23,14 @@ type Domain struct {
 }
 
 type ProductUsecaseInterface interface {
-	// GetByID(id uint, ctx context.Context) (Domain, error)
+	GetByID(id uint, ctx context.Context) (Domain, error)
 	Add(ctx context.Context, domain Domain) (Domain, error)
+	GetAll(ctx context.Context) ([]Domain, error)
 }
 
 type ProductRepoInterface interface {
-	// GetByID(id uint, ctx context.Context) (Domain, error)
+	GetByID(id uint, ctx context.Context) (Domain, error)
 	Add(ctx context.Context, domain Domain) (Domain, error)
+	GetAll(ctx context.Context) ([]Domain, error)
 }
 
