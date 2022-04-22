@@ -32,7 +32,9 @@ func (ctrl *RouteControllerList) RouteRegister(e *echo.Echo) {
 	e.POST("/product_type",  ctrl.ProductTypeController.AddProductType)
 	// e.GET("/product_type/:id", ctrl.ProductTypeController.GetByID)
 
-	e.POST("/product", ctrl.ProductController.Add)
+	// e.POST("/product", ctrl.ProductController.Add)
+	e.POST("/product/in", ctrl.ProductController.ProductIn)
+	e.POST("/product/out", ctrl.ProductController.ProductOut)
 	e.GET("/products", ctrl.ProductController.GetAll)
 	e.GET("/product/:id", ctrl.ProductController.GetByID)
 

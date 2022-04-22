@@ -19,8 +19,8 @@ func NewProductController(ProductUseCase products.ProductUsecaseInterface) *Prod
 	return &ProductController{productUseCase: ProductUseCase}
 }
 
-func (ctrl *ProductController) Add(c echo.Context) error {
-	req := request.ProductRequest{}
+func (ctrl *ProductController) ProductIn(c echo.Context) error {
+	req := request.ProductInRequest{}
 	var err error
 	err = c.Bind(&req)
 	if err != nil {
@@ -28,12 +28,46 @@ func (ctrl *ProductController) Add(c echo.Context) error {
 	}
 	ctx := c.Request().Context()
 	var data products.Domain
-	data, err = ctrl.productUseCase.Add(ctx, *req.ToDomain())
+	data, err = ctrl.productUseCase.ProductIn(ctx, *req.ToDomain())
 	if err != nil {
 		return controllers.NewErrorResponse(c, http.StatusBadRequest, err)
 	}
 	return controllers.NewSuccesResponse(c, response.FromDomainProduct(data))
+	
 }
+
+func (ctrl *ProductController) ProductOut(c echo.Context) error {
+	req := request.ProductInRequest{}
+	var err error
+	err = c.Bind(&req)
+	if err != nil {
+		return controllers.NewErrorResponse(c, http.StatusBadRequest, err)
+	}
+	ctx := c.Request().Context()
+	var data products.Domain
+	data, err = ctrl.productUseCase.ProductOut(ctx, *req.ToDomain())
+	if err != nil {
+		return controllers.NewErrorResponse(c, http.StatusBadRequest, err)
+	}
+	return controllers.NewSuccesResponse(c, response.FromDomainProduct(data))
+	
+}
+
+// func (ctrl *ProductController) Add(c echo.Context) error {
+// 	req := request.ProductRequest{}
+// 	var err error
+// 	err = c.Bind(&req)
+// 	if err != nil {
+// 		return controllers.NewErrorResponse(c, http.StatusBadRequest, err)
+// 	}
+// 	ctx := c.Request().Context()
+// 	var data products.Domain
+// 	data, err = ctrl.productUseCase.Add(ctx, *req.ToDomain())
+// 	if err != nil {
+// 		return controllers.NewErrorResponse(c, http.StatusBadRequest, err)
+// 	}
+// 	return controllers.NewSuccesResponse(c, response.FromDomainProduct(data))
+// }
 
 func (ctrl *ProductController) GetAll(c echo.Context) error {
 	req := c.Request().Context()

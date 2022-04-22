@@ -11,10 +11,11 @@ import (
 type Product struct {
 	Id        uint    `gorm:"primaryKey"`
 	Name      string `gorm:"unique"`
-	ProductType_ID uint
+	ProductTypeID uint
 	ProductType product_types.ProductType `gorm:"constraint:OnUpdate:CASCADE,OnDelete:RESTRICT;"`
 	Description string
 	Price float64
+	TotalPrice  		float64
 	Quantity int
 	CreatedAt time.Time
 	UpdatedAt time.Time
@@ -25,10 +26,11 @@ func (product *Product) ToDomain() products.Domain{
 	res := products.Domain{
 		Id: product.Id,
 		Name: product.Name,
-		ProductType_ID: product.ProductType_ID,
+		ProductType_ID: product.ProductTypeID,
 		ProductType: product.ProductType.ToDomain(),
 		Description: product.Description,
 		Price: product.Price,
+		TotalPrice: product.TotalPrice,
 		Quantity: product.Quantity,
 		CreatedAt:   product.CreatedAt,
 		UpdatedAt:   product.UpdatedAt,
@@ -41,10 +43,11 @@ func FromDomain(domain products.Domain) Product{
 	return Product{
 		Id: domain.Id,
 		Name: domain.Name,
-		ProductType_ID: domain.ProductType_ID,
+		ProductTypeID: domain.ProductType_ID,
 		ProductType: product_types.FromDomain(domain.ProductType),
 		Description: domain.Description,
 		Price: domain.Price,
+		TotalPrice: domain.TotalPrice,
 		Quantity: domain.Quantity,
 		CreatedAt:   domain.CreatedAt,
 		UpdatedAt:   domain.UpdatedAt,

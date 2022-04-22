@@ -1,0 +1,13 @@
+# version: '3.9'
+# services:
+#   sm-mysql-server:
+#     image: mariadb:10.7
+#     environment:
+#       - MARIADB_ROOT_PASSWORD=secret
+#       - MARIADB_DATABASE=sm-db
+#     ports:
+#       # -"3306:3306"
+
+#   stock-management:
+#     build: .
+    
