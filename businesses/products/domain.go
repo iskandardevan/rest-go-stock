@@ -19,16 +19,23 @@ type Domain struct {
 	Name  				string
 	Description     	string
 	Price  				float64
+	TotalPrice  		float64
 	Quantity			int		`gorm:"default:0"`
 }
 
 type ProductUsecaseInterface interface {
-	// GetByID(id uint, ctx context.Context) (Domain, error)
-	Add(ctx context.Context, domain Domain) (Domain, error)
+	GetByID(id uint, ctx context.Context) (Domain, error)
+	// Add(ctx context.Context, domain Domain) (Domain, error)
+	ProductIn(ctx context.Context, domain Domain) (Domain, error)
+	ProductOut(ctx context.Context, domain Domain) (Domain, error)
+	GetAll(ctx context.Context) ([]Domain, error)
 }
 
 type ProductRepoInterface interface {
-	// GetByID(id uint, ctx context.Context) (Domain, error)
-	Add(ctx context.Context, domain Domain) (Domain, error)
+	GetByID(id uint, ctx context.Context) (Domain, error)
+	// Add(ctx context.Context, domain Domain) (Domain, error)
+	ProductIn(ctx context.Context, domain Domain) (Domain, error)
+	ProductOut(ctx context.Context, domain Domain) (Domain, error)
+	GetAll(ctx context.Context) ([]Domain, error)
 }
 

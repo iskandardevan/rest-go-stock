@@ -14,6 +14,7 @@ type ProductResponse struct {
 	ProductType_ID uint    `json:"product_type_id"`
 	Name           string  `json:"name"`
 	Price          float64 `json:"price"`
+	TotalPrice  		float64 `json:"total_price"`
 	Description    string  `json:"description" `
 	Quantity       int     `json:"quantity"`
 	CreatedAt      time.Time
@@ -28,10 +29,19 @@ func FromDomainProduct(domain products.Domain) ProductResponse {
 		ProductType_ID: domain.ProductType_ID,
 		Name: domain.Name,
 		Price: domain.Price,
+		TotalPrice: domain.TotalPrice,
 		Description: domain.Description,
 		Quantity: domain.Quantity,
 		CreatedAt: domain.CreatedAt,
 		UpdatedAt: domain.UpdatedAt,
 		DeletedAt: domain.DeletedAt,
 	}
+}
+
+func FromDomainProductArray(data []products.Domain) []ProductResponse {
+	var res []ProductResponse
+	for _, val := range data {
+		res = append(res, FromDomainProduct(val))
+	}
+	return res
 }
